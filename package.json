@@ -1,6 +1,7 @@
 {
   "name": "asdasdasd",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@react-three/drei": "^3.11.2",
