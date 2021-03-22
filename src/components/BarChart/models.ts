@@ -1,7 +1,5 @@
-export interface DataResponse {
-  request: string
-  days: {
-    day: number
-    amount: number
-  }[]
+import { Days } from "../../views/Home/models";
+
+export interface IBarChart {
+  plot: Days[]
 }

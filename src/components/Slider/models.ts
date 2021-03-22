@@ -4,4 +4,6 @@ export interface ISlider {
   min?: number
   max: number
   step: number
+  label?: string
+  onChangeValue: (value: number) => void
 }
