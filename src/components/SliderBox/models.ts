@@ -9,4 +9,5 @@ export interface SliderValue {
 export interface ISliderBox {
   data: DataResponse[]
   onUpdateValue: (newValue: DataPortion[]) => void
+  onChangeTemperature: (newValue: number) => void
 }
