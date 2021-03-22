@@ -1,6 +1,28 @@
-# Getting Started with Create React App
+# Weather Service Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The weather service dashboard consist of two sliders („pressure“ and „temperature“)andtwocharts(„chanceofrain“and„amountofrainfall“).
+
+## Dashboard description
+
+### Chance of rain chart
+
+The chance of rain chart displays the mean value and the variance in aline chart. The x-axis are the upcoming days (1...7). The y-axis is the probability of rain (0-100%). The values for the rain chart can be calculated by the following function: 
+
+```
+functionchanceOfRain(pressure,temperature,amount) {
+  var score = Math.log(amount+1) * Math.log(pressure-929) * Math.log(temperature-9);
+  var mean = Math.min(Math.max(score,0),100)
+  var upper_bound = Math.min(1.5 * mean, 100);
+  var lower_bound = Math.max(0.5 * mean,0);
+  return[lower_bound,mean,upper_bound];
+}
+```
+The values of the two sliders(“pressure”and“temperature”) are inputs for the function.These are global estimates and valid for each of the seven days. The sliders are described below. Moreover,the amount of rain fall you get for the day(“amount”) is input for the function. It is also described below. For amount of rainfall, you will get one value per day from aserver.The function returns an array of three values. “mean” is the estimated chance of rain for the day. “upper_bound” and “lower_bound” define a range that quantifies ourconfidence.All three return values should be visualized in the chart.
+
+### Amount of rain fall chart
+
+The amount of rain fall is a barchart. The x-axis will represent the upcoming days(1...7). The y-axis is the amount of rain fall in l/m2.
+The values for the bar chart can be requested from the server. Call it at the following link [Data](http://private-4945e-weather34.apiary-proxy.com/weather34/rain).
 
 ## Available Scripts
 
