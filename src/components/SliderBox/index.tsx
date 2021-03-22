@@ -4,11 +4,17 @@ import { DataPortion } from "../TimeSerieChart/models";
 import { ISliderBox, SliderValue } from "./models";
 import { MainSliderWrapper } from "./styles";
 
-export const SliderBox = ({ data, onUpdateValue }: ISliderBox) => {
+export const SliderBox = ({
+  data,
+  onUpdateValue,
+  onChangeTemperature,
+}: ISliderBox) => {
   const [sliderValue, setSliderValue] = useState<SliderValue>({
     press: 970,
     temp: 10,
   });
+
+  const [localTimeOut, setLocalTimeOut] = useState<any>();
 
   /*
    *  This hook observes changes in sliderValue, iterates over the service response
@@ -16,6 +22,15 @@ export const SliderBox = ({ data, onUpdateValue }: ISliderBox) => {
    */
 
   useEffect(() => {
+    localTimeOut && setLocalTimeOut(clearTimeout(localTimeOut));
+    setLocalTimeOut(
+      setTimeout(() => {
+        updatePlot();
+      }, 1000)
+    );
+  }, [sliderValue, data]);
+
+  const updatePlot = () => {
     if (data.length > 0) {
       const dataPortion: DataPortion[] = data[0].days.map((singleDay) => {
         const lineArray: number[] = functionchanceOfRain(
@@ -32,7 +47,7 @@ export const SliderBox = ({ data, onUpdateValue }: ISliderBox) => {
       });
       onUpdateValue(dataPortion);
     }
-  }, [sliderValue, data]);
+  };
 
   const functionchanceOfRain = (
     pressure: number,
@@ -58,9 +73,9 @@ export const SliderBox = ({ data, onUpdateValue }: ISliderBox) => {
     <MainSliderWrapper>
       <Slider
         label={"Pressure"}
-        onChangeValue={(value) =>
-          setSliderValue({ ...sliderValue, press: value })
-        }
+        onChangeValue={(value) => {
+          setSliderValue({ ...sliderValue, press: value });
+        }}
         defaultValue={sliderValue.press}
         min={970}
         max={1030}
@@ -68,9 +83,10 @@ export const SliderBox = ({ data, onUpdateValue }: ISliderBox) => {
       />
       <Slider
         label={"Temperature"}
-        onChangeValue={(value) =>
-          setSliderValue({ ...sliderValue, temp: value })
-        }
+        onChangeValue={(value) => {
+          setSliderValue({ ...sliderValue, temp: value });
+          onChangeTemperature(value);
+        }}
         defaultValue={sliderValue.temp}
         min={10}
         max={35}
