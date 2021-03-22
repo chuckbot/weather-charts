@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
 export const MainLayoutContainer = styled.div `
-  width: 450px;
-  height: 300px;
-  background: white;
-  box-shadow: 0 4px 1px rgba(177, 190, 204, .6);
-  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  background-color: rgba(255, 255, 255, .5);  
+  backdrop-filter: blur(10px);
 `;

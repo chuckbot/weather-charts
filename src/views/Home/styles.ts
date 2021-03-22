@@ -1,19 +1,36 @@
 import styled from 'styled-components'
 
 export const MainContainer = styled.div `
-  width: 100%;
+  background: url(https://images.unsplash.com/photo-1544306094-e2dcf9479da3) no-repeat;
+  background-size: cover;
+  display: grid;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
-  background: #d1d8e0;
-  padding: 50px;
-  box-sizing: border-box;
 
   h1.layout-title {
     margin: 0;
   }
 
+
+  .item-a {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .item-b {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .item-c {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
   div.chart-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: left;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
   }
 `;
